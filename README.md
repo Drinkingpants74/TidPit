@@ -6,8 +6,8 @@
 * [What Can It Do](https://github.com/Drinkingpants74/TidPit/tree/main#what-can-it-do)
 * [Upcoming Modules](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-modules)
 * [LongShot Modules](https://github.com/Drinkingpants74/TidPit/tree/main#longshot-modules)
-* [Can I Create My Own Modules](https://github.com/Drinkingpants74/TidPit/tree/main#can-i-create-my-own-modules)
-* [Upcoming Features/Changes](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-features)
+* [Can I Create My Own Modules](https://github.com/Drinkingpants74/TidPit/tree/main#can-i-create-my-own-module)
+* [Upcoming Features/Changes](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-featureschanges)
 
 
 ## Quick Start:
