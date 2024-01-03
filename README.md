@@ -1,6 +1,7 @@
 # TidPit
 
 ## Table of Contents:
+* [Releases Page](https://github.com/Drinkingpants74/TidPit/releases)
 * [Quick Start](https://github.com/Drinkingpants74/TidPit/tree/main#quick-start)
 * [What Is TidPit](https://github.com/Drinkingpants74/TidPit/tree/main#what-is-tidpit)
 * [What Can It Do](https://github.com/Drinkingpants74/TidPit/tree/main#what-can-it-do)
@@ -12,9 +13,13 @@
 
 
 ## Quick Start:
+Download a [release from here](https://github.com/Drinkingpants74/TidPit/releases).
+
+_While it's Downloading, install the Dependencies:_
 ```
 pip install gnews
 ```
+_Then Run:_
 ```
 python3 setup(GUI).py
 ```
@@ -22,7 +27,7 @@ __OR__
 ```
 python3 setup(TUI).py
 ```
-_THEN_
+_Then Run:_
 ```
 python3 output.py
 ```
@@ -69,8 +74,10 @@ If you do make a new Module, share it with the class! I'd love to see what you c
 
 
 ## Install:
-Some modules have dependency requirements. They are:
+Some modules have dependency requirements. You do not need every dependency, just the ones
+necessary for the Modules you want to use.
 
+### Dependencies:
 Clock: None
 
 News: [GNews](https://github.com/ranahaani/GNews)
@@ -78,6 +85,7 @@ News: [GNews](https://github.com/ranahaani/GNews)
 pip install gnews
 ```
 
+### Setup:
 After the Dependencies are installed, simply run _setup(GUI).py_ or _setup(TUI).py_.
 * GUI - Graphical Interface Setup
 * TUI - Terminal Interface Setup
