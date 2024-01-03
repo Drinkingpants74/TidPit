@@ -34,6 +34,7 @@ python3 output.py
 
 ## What Is TidPit:
 TidPit is a Python Project that uses TKInter to create a rotating display of information.
+It's _designed_ to be run on a Raspberry Pi, but it _can_ run on anything that supports Python.
 
 
 ## What Can It Do?
