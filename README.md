@@ -1,13 +1,13 @@
 # TidPit
 
 ## Table of Contents:
-* [Quick Start]()
-* [What Is TidPit]()
-* [What Can It Do]()
-* [Upcoming Modules]()
-* [LongShot Modules]()
-* [Can I Create My Own Modules]()
-* [Upcoming Features/Changes]()
+* [Quick Start](https://github.com/Drinkingpants74/TidPit/tree/main#quick-start)
+* [What Is TidPit](https://github.com/Drinkingpants74/TidPit/tree/main#what-is-tidpit)
+* [What Can It Do](https://github.com/Drinkingpants74/TidPit/tree/main#what-can-it-do)
+* [Upcoming Modules](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-modules)
+* [LongShot Modules](https://github.com/Drinkingpants74/TidPit/tree/main#longshot-modules)
+* [Can I Create My Own Modules](https://github.com/Drinkingpants74/TidPit/tree/main#can-i-create-my-own-modules)
+* [Upcoming Features/Changes](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-features)
 
 
 ## Quick Start:
@@ -61,4 +61,4 @@ If you do make a new Module, share it with the class! I'd love to see what you c
         * Topic Exclusions/Selection
         * Text Color
         * Background Color
-* More Modules [See Above]()
+* More Modules [See Above](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-modules)
