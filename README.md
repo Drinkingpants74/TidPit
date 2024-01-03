@@ -8,9 +8,13 @@
 * [LongShot Modules](https://github.com/Drinkingpants74/TidPit/tree/main#longshot-modules)
 * [Can I Create My Own Modules](https://github.com/Drinkingpants74/TidPit/tree/main#can-i-create-my-own-module)
 * [Upcoming Features/Changes](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-featureschanges)
+* [Installation Instructions](https://github.com/Drinkingpants74/TidPit/tree/main#install)
 
 
 ## Quick Start:
+```
+pip install gnews
+```
 ```
 python3 setup(GUI).py
 ```
@@ -62,3 +66,29 @@ If you do make a new Module, share it with the class! I'd love to see what you c
         * Text Color
         * Background Color
 * More Modules [See Above](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-modules)
+
+
+## Install:
+Some modules have dependency requirements. They are:
+
+Clock: None
+
+News: [GNews](https://github.com/ranahaani/GNews)
+```
+pip install gnews
+```
+
+After the Dependencies are installed, simply run _setup(GUI).py_ or _setup(TUI).py_.
+* GUI - Graphical Interface Setup
+* TUI - Terminal Interface Setup
+```
+python3 setup(GUI).py
+```
+__OR__
+```
+python3 setup(TUI).py
+```
+Then Run the Generated File:
+```
+python3 output.py
+```
