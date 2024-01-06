@@ -1,1 +1,0 @@
-frameList.append(News)
