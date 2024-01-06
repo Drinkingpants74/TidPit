@@ -1,3 +1,0 @@
-loadFrames()
-
-tk.mainloop()
