@@ -36,12 +36,13 @@ It's _designed_ to be run on a Raspberry Pi, but it _can_ run on anything that s
 ## Available Modules:
 1. Clock
 2. News
-3. Sports (NFL Only)
+<!---3. Sports (NFL Only)--->
 
 More Modules will be added as time goes on.
 
 ## Upcoming Modules:
 In No Particular Order:
+* Sports Scores
 * Photo Scroller/Viewer
 * Inspirational Quotes
 
@@ -57,15 +58,14 @@ Also, if you do make a new Module share it with the class! I'd love to see what 
 
 ## Upcoming Features/Changes:
 * Customization Options
-   * Clock:
-      * Background Color
-   * News:
-      * Topic Exclusions/Selection
-      * Text Color
-      * Background Color
-   * Sports:
-      * Choose Which/How Many Leagues You Want
-         * NFL, CFB, NBA, CBB, NHL
+  * Clock:
+    * Background Color
+  * News:
+    * Topic Exclusions/Selection
+    * Text Color
+    * Background Color
+  * Sports:
+    * Favorite Teams (NFL, CFB, NBA, CBB, NHL)
 * More Modules [See Above](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-modules)
 
 
@@ -83,14 +83,14 @@ News:
 pip install gnews
 ```
 
-Sports:
+<!---Sports:
 * [Sports Dataverse](https://github.com/sportsdataverse/sportsdataverse-py)
 * Requests
 * Pillow
 ```
 pip install sportsdataverse requests pillow
 ```
-
+--->
 ### Setup:
 After the Dependencies are installed, simply run _setup.py_.
 ```
