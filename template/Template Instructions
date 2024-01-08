@@ -1,0 +1,70 @@
+This file will explain all the rules and guidelines for creating a new Module for TidPit.
+These rules exist to ensure compatibility with the Main Script and the Setup Script.
+Custom Modules MUST follow the rules listed below:
+
+# Naming:
+    File - Lowercase
+    Class - Capitalized File Name
+
+    EX: clock.py -> Clock
+
+# Imports:
+    The only provided import is the TKInter modules, renamed to "tk".
+    Any other imports you need may be added.
+
+# Code Editing:
+    You CANNOT modify the existing code.
+    What has been given is the bare minimum required to work,
+    and ensures compatibility with the Main Script.
+
+    When Adding TKInter Widgets, attach them to "self", as the
+    Class Object is a Frame Object.
+
+# Persistent Variable:
+    Any Variables that NEED to persist across display changes
+    must be declared OUTSIDE of the Class Object.
+
+    Any Variables that DO NOT NEED to persist across display changes
+    can be declared INSIDE of the Class Object.
+    You may declare them OUTSIDE as well, but I'd prefer if you didn't.
+
+# Main Script Compatibility:
+    The ONLY FUNCTION the main script will run is the init function.
+    If you have functions that need to be run, call them from the init function.
+
+    I recommend creating a Domino style of function execution.
+    What this means is when One function is called, the rest
+    are run sequentially after.
+
+    EX: init() -> func1() -> func2() -> etc.
+
+# Setup Script Compatibility:
+    The Setup Script has a button titled "Extras" which is designed
+    for Adding Custom Modules. Simply type in the File Name of your
+    Module without the ".py" ending.
+
+    EX: clock.py -> clock
+
+    As a Custom Module, you will not be able to offer Customization
+    options through the Setup Script. There are other ways though:
+
+    * Create a separate Python file with the Settings you need inside
+        Then have users Edit that file
+
+    * Create your own Setup Script that handles ONLY your file.
+
+    * Create an Unofficial Fork of this project and add your
+        Customization Page as a Class inside setupClasses.py
+
+
+# Extra Notes:
+    When creating your Module, think of it like this;
+    You file is essentially a Zip File. When the Main
+    Script is run, the file is "UnZipped", and runs.
+
+    The Main Script does NOT keep Frames when they switch.
+    For Example, if the Clock was displayed, but the program
+    switched to the News being displayed, the Clock Object is
+    destroyed, and the News Object is created. This is why
+    Variables inside the Class do not persist, but variables
+    outside the Class do.
