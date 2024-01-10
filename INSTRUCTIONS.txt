@@ -1,4 +1,4 @@
-INSTRUCTIONS v0.1.5
+INSTRUCTIONS v0.2
 
 # Quick Setup:
 
@@ -42,6 +42,20 @@ INSTRUCTIONS v0.1.5
         When you're satisfied with your setup, press "Finish"
 
         If you decide you don't want to add News, click "Return"
+
+    # Sports:
+        The Sports setup screen has 4 buttons for the 4 supported sports (NFL, NBA, CFB, CBB).
+        Clicking on one of the buttons will bring you to one of 2 screens:
+
+        NFL & NBA - Click the name of your Favorite Team
+
+        CFB & CBB - Type the name of your Favorite Team (Full Name)
+                    EX: Duke Blue Devils
+
+        Clicking on a team name automatically adds that module to your
+        list of modules. You may only select 1 team per league.
+
+        You may return to the main screen with either "Confirm" or "Return".
 
 
 # Running TidPit:
