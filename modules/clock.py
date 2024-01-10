@@ -4,7 +4,8 @@ import tkinter as tk
 import prefs
 
 strForm = "%I:%M %p"
-color = prefs.color
+textColor = prefs.textColor
+BGColor = prefs.BGColor
 
 def set_strForm():
     global strForm
@@ -18,23 +19,23 @@ def set_strForm():
 
 class Clock(tk.Frame):
     def __init__(self, window):
-        global color
+        global textColor, BGColor
         tk.Frame.__init__(self, window)
-        self.configure(bg="black")
+        self.configure(bg=BGColor)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
-        self.lbl1 = tk.Label(self, bg="black", fg=color, font=("Helvetica Neue", int(window.winfo_screenwidth() / 5), "bold"))
+        self.lbl1 = tk.Label(self, bg=BGColor, fg=textColor, font=("Sans Serif", int(window.winfo_screenwidth() / 6), "bold"))
         self.lbl1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         set_strForm()
-        self.time(self.lbl1)
+        self.time()
 
-    def delete(self):
-        self.lbl1.destroy()
-        self.destroy()
+    def restart(self):
+        set_strForm()
+        self.time()
 
-    def time(self, frame):
+    def time(self):
         global strForm
         timeString = time.strftime(strForm, time.localtime())
-        frame.configure(text=timeString)
-        frame.after(100, self.time, frame)
+        self.lbl1.configure(text=timeString)
+        self.lbl1.after(100, self.time)

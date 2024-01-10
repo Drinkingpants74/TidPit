@@ -21,16 +21,14 @@ Custom Modules MUST follow the rules listed below:
     Class Object is a Frame Object.
 
 # Persistent Variable:
-    Any Variables that NEED to persist across display changes
-    must be declared OUTSIDE of the Class Object.
-
-    Any Variables that DO NOT NEED to persist across display changes
-    can be declared INSIDE of the Class Object.
-    You may declare them OUTSIDE as well, but I'd prefer if you didn't.
+    Variables SHOULD persist across display changes, but to
+    ensure that is the case, I recommend using Global variables
+    for anything you NEED to ensure persists, and Class Global
+    variables for anything that you are okay with losing.
 
 # Main Script Compatibility:
-    The ONLY FUNCTION the main script will run is the init function.
-    If you have functions that need to be run, call them from the init function.
+    The ONLY FUNCTIONS the main script will run are the init function, and restart.
+    If you have functions that need to be run, call them from the inside either function.
 
     I recommend creating a Domino style of function execution.
     What this means is when One function is called, the rest
@@ -55,16 +53,3 @@ Custom Modules MUST follow the rules listed below:
 
     * Create an Unofficial Fork of this project and add your
         Customization Page as a Class inside setupClasses.py
-
-
-# Extra Notes:
-    When creating your Module, think of it like this;
-    You file is essentially a Zip File. When the Main
-    Script is run, the file is "UnZipped", and runs.
-
-    The Main Script does NOT keep Frames when they switch.
-    For Example, if the Clock was displayed, but the program
-    switched to the News being displayed, the Clock Object is
-    destroyed, and the News Object is created. This is why
-    Variables inside the Class do not persist, but variables
-    outside the Class do.

@@ -4,11 +4,13 @@ import setupClasses as CLASSES
 window = tk.Tk()
 window.title("TidPit GUI Setup")
 window.minsize(height=int(window.winfo_screenheight()/2), width=int(window.winfo_screenwidth()/2))
+window.configure(bg="#1f1f1f")
 
 fileNames = []
 
 prefs = {}
 frames = {}
+
 
 def write_prefs(): # Write variables to Preferences.py and import necessary variables
     with open("prefs.py", "w") as file:
@@ -27,33 +29,16 @@ def write_prefs(): # Write variables to Preferences.py and import necessary vari
                 file.write(str(i) + " = " + "\"" + str(prefs[i]) + "\"" + "\n")
 
 
-def prefs_test():
-    for i in prefs:
-        if (type(prefs[i]) is list):
-            output = str(i) + " = ["
-            count = len(prefs[i])
-            for j in prefs[i]:
-                count -= 1
-                output += "\"" + str(j) + "\""
-                if (count != 0):
-                    output += ", "
-            output += "]"
-            print(output)
-        else:
-            print(str(i) + " = " + "\"" + str(prefs[i]) + "\"")
-
-
 def write_output():
     # global prefs
     with open("output.py", "w") as file:
         file.write("import tkinter as tk\n")
         for i in prefs["selectedModules"]:
-            if (i == "NFL"):
+            if (i == "NFL") or (i == "NBA") or (i == "NHL") or (i == "CFB") or (i == "CBB"):
                 file.write("from modules." + "sports" + " import " + str(i).capitalize() + "\n")
             else:
                 file.write("from modules." + i + " import " + str(i).capitalize() + "\n")
         file.write("\n")
-
 
         file.write('''window = tk.Tk()
 window.grid_rowconfigure(0, weight=1)
@@ -64,34 +49,36 @@ window.eval('tk::PlaceWindow . center')
 window.configure(bg="black")
 
 frameList = []
+activeFrames = []
 currFramePos = 0
-currFrame = None
 ''')
 
-        file.write("\n")
-
         file.write('''
-def loadFrame(frame):
-    global currFramePos, currFrame
-    if (frame != None):
-        if (currFrame != None):
-            currFrame.destroy()
-        currFrame = frame(window)
-        ''')
+def loadFrames():
+    global frameList, activeFrames
+    for i in frameList:
+        activeFrames.append(i(window))
 
-        file.write("\n")
+    showFrames()
+        
 
-        file.write('''
 def showFrames():
-    global currFramePos, currFrame
+    global activeFrames
 
-    loadFrame(frameList[currFramePos])
+    activeFrames[currFramePos].tkraise()
+    activeFrames[currFramePos].restart()
+    activeFrames[currFramePos].after(ms=30000, func=inc_currFramePos)
+
+
+def inc_currFramePos():
+    global currFramePos
+
     if (currFramePos >= (len(frameList) - 1)):
         currFramePos = 0
     else:
         currFramePos += 1
 
-    currFrame.after(30000, showFrames)
+    showFrames()
         ''')
 
         file.write("\n")
@@ -101,11 +88,8 @@ def showFrames():
 
         file.write("\n")
 
-        file.write("showFrames()\n")
+        file.write("loadFrames()\n")
         file.write("window.mainloop()\n")
-
-
-
 
 
 def get_prefs():
@@ -118,7 +102,8 @@ def get_prefs():
     prefs["timeForm"] = CLASSES.timeForm
     prefs["dateForm"] = CLASSES.dateForm
     prefs["dayForm"] = CLASSES.dayForm
-    prefs["color"] = CLASSES.color
+    prefs["textColor"] = CLASSES.textColor
+    prefs["BGColor"] = CLASSES.BGColor
 
     # Sports Vars
     prefs["nflTeam"] = CLASSES.nflTeam
@@ -134,7 +119,6 @@ def get_prefs():
     prefs["newsLanguage"] = CLASSES.newsLanguage
     prefs["newsExclude"] = CLASSES.newsExclude
 
-    prefs_test()
     write_prefs()
     write_output()
     window.destroy()

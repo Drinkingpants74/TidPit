@@ -6,6 +6,8 @@ mainWindow = None
 command = None
 currFrame = None
 
+scaling = 1.0
+
 selectedModules = []
 fileNames = []
 
@@ -14,7 +16,8 @@ strForm = "%I:%M %p"
 timeForm = "%I:%M %p"
 dateForm = ""
 dayForm = ""
-color = "white"
+textColor = "white"
+BGColor = "black"
 
 # Sports Vars
 nflTeam = "Buffalo Bills"
@@ -78,34 +81,38 @@ def set_teamName(name, league):
 
 class MainFrame(tk.Frame):
     def __init__(self, window):
-        tk.Frame.__init__(self, window)
-        self.configure()#bg="black")
+        tk.Frame.__init__(self, window, bg="#1f1f1f")
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
 
-        # self.infoLBL = tk.Label(self, )
-
-        self.clockButt = tk.Button(self, bg="black", text="Clock", command=lambda: switchTo(ClockFrame))
+        self.clockButt = tk.Button(self, font=("sans-serif", 64), width=6,
+                                   text="Clock", command=lambda: switchTo(ClockFrame))
         self.clockButt.grid(row=0, column=0)
-        self.newsButt = tk.Button(self, bg="black", text="News", command=lambda: switchTo(NewsFrame))
+
+        self.newsButt = tk.Button(self, font=("sans-serif", 64), width=6,
+                                  text="News", command=lambda: switchTo(NewsFrame))
         self.newsButt.grid(row=0, column=1)
-        # self.sportsButt = tk.Button(self, bg="black", text="Sports", command=lambda: switchTo(SportsFrame))
-        # self.sportsButt.grid(row=1, column=0)
-        # self.weatherButt = tk.Button(self, bg="black", text="Weather", command=lambda: switchTo(None))
-        # self.weatherButt.grid(row=1, column=1)
 
-        self.clockButt = tk.Button(self, bg="black", text="Extras", command=lambda: switchTo(OtherFrame))
-        self.clockButt.grid(row=1, column=1)
+        self.sportsButt = tk.Button(self, font=("sans-serif", 64), width=6,
+                                          text="Sports", command=lambda: switchTo(SportsFrame))
+        self.sportsButt.grid(row=0, column=2)
 
-        self.finishButt = tk.Button(self, bg="black", text="Finish", command=end)
-        self.finishButt.grid(row=5, column=0, columnspan=2)
+        # self.weatherButt = tk.Button(self, font=("sans-serif", 64), width=6,
+        #                              text="Weather", command=lambda: switchTo(None))
+        # self.weatherButt.grid(row=1, column=0)
 
+        self.extrasButt = tk.Button(self, font=("sans-serif", 64), width=6,
+                                  text="Extras", command=lambda: switchTo(OtherFrame))
+        self.extrasButt.grid(row=1, column=1)
+
+        self.finishButt = tk.Button(self, font=("sans-serif", 64), width=6,
+                                  text="Finish", command=end)
+        self.finishButt.grid(row=2, column=0, columnspan=3)
 
 class OtherFrame(tk.Frame):
     def __init__(self, window):
-        tk.Frame.__init__(self, window)
-        self.configure()#bg="black")
+        tk.Frame.__init__(self, window, bg="#1f1f1f")
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
@@ -168,8 +175,7 @@ class OtherFrame(tk.Frame):
 
 class ClockFrame(tk.Frame):
     def __init__(self, window):
-        tk.Frame.__init__(self, window)
-        self.configure()#bg="black")
+        tk.Frame.__init__(self, window, bg="#1f1f1f")
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
@@ -193,8 +199,10 @@ class ClockFrame(tk.Frame):
         self.dateFormButtx = tk.Button(self, text="No Date", command=lambda: self.set_dateForm(""))
 
         self.colorLBL = tk.Label(self, text="Choose The Clock Color")
-        self.colorPickButt = tk.Button(self, text="Pick Color", command=self.set_color)
-        self.colorResetButt = tk.Button(self, text="Reset Color", command=self.reset_color)
+        self.colorTextButt = tk.Button(self, text="Text Color", command=self.set_color_text)
+        self.colorResetTextButt = tk.Button(self, text="Reset Text Color", command=self.reset_color_text)
+        self.colorBGButt = tk.Button(self, text="BG Color", command=self.set_color_BG)
+        self.colorResetBGButt = tk.Button(self, text="Reset Text Color", command=self.reset_color_BG)
 
         self.timeInstLBL.grid(row=0, column=0, columnspan=4)
         self.timeFormButt1.grid(row=1, column=0)
@@ -214,8 +222,10 @@ class ClockFrame(tk.Frame):
         self.dateFormButtx.grid(row=5, column=3)
 
         self.colorLBL.grid(row=6, column=0, columnspan=4)
-        self.colorPickButt.grid(row=7, column=0)
-        self.colorResetButt.grid(row=7, column=1)
+        self.colorTextButt.grid(row=7, column=0)
+        self.colorResetTextButt.grid(row=7, column=1)
+        self.colorBGButt.grid(row=7, column=2)
+        self.colorResetBGButt.grid(row=7, column=3)
 
         self.confButt = tk.Button(self, bg="black", text="Confirm Selection", command=self.addModule)
         self.confButt.grid(row=8, column=2, columnspan=1)
@@ -225,18 +235,18 @@ class ClockFrame(tk.Frame):
 
         global strForm, timeForm, dateForm, dayForm, color
 
-        self.timeLBL = tk.Label(self, bg="black", fg="white", font=("Helvetica Neue", int(window.winfo_screenwidth() / 25), "bold"),
+        self.timeLBL = tk.Label(self, bg="black", fg="white", font=("Sans Serif", int(window.winfo_screenwidth() / 25), "bold"),
                                 text=time.strftime(strForm, time.localtime()))
         self.timeLBL.grid(row=9, column=0, columnspan=4)
         self.timeLBL.grid_rowconfigure(0, weight=1)
         self.timeLBL.grid_columnconfigure(0, weight=1)
 
     def update_timeLBL(self):
-        global strForm, timeForm, dateForm, dayForm, color
-        self.timeLBL.configure(fg=color, text=time.strftime(strForm, time.localtime()))
+        global strForm, textColor, BGColor
+        self.timeLBL.configure(fg=textColor, bg=BGColor, text=time.strftime(strForm, time.localtime()))
 
     def update_strForm(self):
-        global strForm, timeForm, dateForm, dayForm, color
+        global strForm, timeForm, dateForm, dayForm
         strForm = ""
         if (str(dayForm) != ""):
             strForm += str(dayForm) + "\n"
@@ -262,15 +272,26 @@ class ClockFrame(tk.Frame):
         dayForm = df
         self.update_strForm()
 
-    def set_color(self):
-        global strForm, timeForm, dateForm, dayForm, color
+    def set_color_text(self):
+        global textColor
         colorPicker = tkinter.colorchooser.askcolor(initialcolor="white")
-        color = colorPicker[1]
+        textColor = colorPicker[1]
         self.update_timeLBL()
 
-    def reset_color(self):
-        global strForm, timeForm, dateForm, dayForm, color
-        color = "white"
+    def set_color_BG(self):
+        global BGColor
+        colorPicker = tkinter.colorchooser.askcolor(initialcolor="black")
+        BGColor = colorPicker[1]
+        self.update_timeLBL()
+
+    def reset_color_text(self):
+        global textColor
+        textColor = "white"
+        self.update_timeLBL()
+
+    def reset_color_BG(self):
+        global BGColor
+        BGColor = "black"
         self.update_timeLBL()
 
     def addModule(self):
@@ -298,10 +319,10 @@ class SportsFrame(tk.Frame):
         self.cfbButt.grid(row=1, column=1)
         self.nbaButt = tk.Button(self, text="NBA", command=lambda: switchTo(NBAFrame))
         self.nbaButt.grid(row=2, column=0)
-        self.nhlButt = tk.Button(self, text="NHL", command=lambda: switchTo(NHLFrame))
-        self.nhlButt.grid(row=2, column=1)
         self.cbbButt = tk.Button(self, text="CBB", command=lambda: switchTo(CBBFrame))
-        self.cbbButt.grid(row=3, column=0)
+        self.cbbButt.grid(row=2, column=1)
+        # self.nhlButt = tk.Button(self, text="NHL", command=lambda: switchTo(NHLFrame))
+        # self.nhlButt.grid(row=3, column=0)
 
         self.exitButt = tk.Button(self, text="Confirm", command=self.addModule)
         self.exitButt.grid(row=4, column=0)
