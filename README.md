@@ -44,9 +44,10 @@ More Modules will be added as time goes on.
 In No Particular Order:
 * Photo Scroller/Viewer
 * Inspirational Quotes
+* Weather
 
 ## LongShot Modules:
-* Weather
+* None
 
 ## Can I Create My Own Module?
 Yep. The best part about TidPit is that it's scalable. To create a new module, follow the Instructions
@@ -64,6 +65,13 @@ Also, if you do make a new Module share it with the class! I'd love to see what 
   * Sports:
     * Background Color
     * Text Color
+    * Multiple Teams Per League
+  * Weather
+    * Location Selection
+    * Information Selection
+    * Background Color
+    * Text Color
+    * Multiple Locations
 * More Modules [See Above](https://github.com/Drinkingpants74/TidPit/tree/main#upcoming-modules)
 
 
