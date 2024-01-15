@@ -17,7 +17,7 @@ Download a [release from here](https://github.com/Drinkingpants74/TidPit/release
 
 _While it's Downloading, install the Dependencies:_
 ```
-pip install gnews sportsdataverse requests pillow
+pip install gnews sportsdataverse requests pillow openmeteo-requests requests-cache retry-requests geopy
 ```
 _Then Run:_
 ```
@@ -37,6 +37,7 @@ It's _designed_ to be run on a Raspberry Pi, but it _can_ run on anything that s
 1. Clock
 2. News
 3. Sports (NFL, NBA, CFB, CBB)
+4. Weather
 
 More Modules will be added as time goes on.
 
@@ -44,7 +45,6 @@ More Modules will be added as time goes on.
 In No Particular Order:
 * Photo Scroller/Viewer
 * Inspirational Quotes
-* Weather
 
 ## LongShot Modules:
 * None
@@ -67,7 +67,6 @@ Also, if you do make a new Module share it with the class! I'd love to see what 
     * Text Color
     * Multiple Teams Per League
   * Weather
-    * Location Selection
     * Information Selection
     * Background Color
     * Text Color
@@ -95,6 +94,14 @@ Sports:
 * Pillow
 ```
 pip install sportsdataverse requests pillow
+```
+Weather:
+* [Open-Meteo](https://open-meteo.com)
+* Requests
+* Geopy
+* Pillow
+```
+pip install openmeteo-requests requests-cache retry-requests geopy pillow
 ```
 
 ### Setup:
