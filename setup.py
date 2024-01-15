@@ -5,6 +5,8 @@ window = tk.Tk()
 window.title("TidPit GUI Setup")
 window.minsize(height=int(window.winfo_screenheight()/2), width=int(window.winfo_screenwidth()/2))
 window.configure(bg="#1f1f1f")
+window.grid_rowconfigure(0, weight=1)
+window.grid_columnconfigure(0, weight=1)
 
 fileNames = []
 
@@ -118,6 +120,12 @@ def get_prefs():
     prefs["newsCountry"] = CLASSES.newsCountry
     prefs["newsLanguage"] = CLASSES.newsLanguage
     prefs["newsExclude"] = CLASSES.newsExclude
+
+    # Weather Vars
+    prefs["tempForm"] = CLASSES.tempForm
+    prefs["windForm"] = CLASSES.windForm
+    prefs["dirForm"] = CLASSES.dirForm
+    prefs["location"] = CLASSES.location
 
     write_prefs()
     write_output()

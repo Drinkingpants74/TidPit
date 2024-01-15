@@ -1,7 +1,9 @@
-INSTRUCTIONS v0.2
+INSTRUCTIONS v0.3
 
 # Quick Setup:
 
+    0.) Install the required Dependencies:
+        pip install gnews sportsdataverse requests pillow openmeteo-requests requests-cache retry-requests geopy
     1.) Run setup.py
     2.) Click the Modules You Wish To Add
     3.) Click "Finish"
@@ -21,6 +23,8 @@ INSTRUCTIONS v0.2
         When you're satisfied with your setup, press "Confirm Selection"
 
         If you decide you don't want to add a clock, click "Return"
+
+        Dependencies: None
 
     # News:
         The News setup screen is a very basic one, but it's robust.
@@ -43,6 +47,8 @@ INSTRUCTIONS v0.2
 
         If you decide you don't want to add News, click "Return"
 
+        Dependencies: gnews
+
     # Sports:
         The Sports setup screen has 4 buttons for the 4 supported sports (NFL, NBA, CFB, CBB).
         Clicking on one of the buttons will bring you to one of 2 screens:
@@ -57,6 +63,25 @@ INSTRUCTIONS v0.2
 
         You may return to the main screen with either "Confirm" or "Return".
 
+        Dependencies: sportsdataverse, requests, pillow
+
+    # Weather:
+        The Weather setup screen has 3 toggleable buttons:
+
+        1.) Temperature Format - Switches between Celsius and Fahrenheit
+        2.) Wind Speed Format - Switches between MPH and KMH
+        3.) Wind Direction Format - Switches between Cardinal Direction (NSEW) and Degrees(0-360)
+
+        There is also a Text Box for the Location you want. Simply type in the Location you want.
+        EX: Dallas, TX
+        Once you've entered a location click "Set Location".
+
+        When you're satisfied with your setup, press "Confirm"
+
+        If you decide you don't want to add Weather, click "Return"
+
+        Dependencies: openmeteo-requests, requests-cache, retry-requests, geopy, pillow
+
 
 # Running TidPit:
 
@@ -66,4 +91,4 @@ INSTRUCTIONS v0.2
 # Changing The Program:
 
     If You Want To Change What Modules Are Used, Simply Delete "output.py",
-    and run Your Desired Setup File Again.
+    and run "setup.py" Again.

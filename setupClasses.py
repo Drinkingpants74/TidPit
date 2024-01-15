@@ -5,11 +5,13 @@ import tkinter.colorchooser
 mainWindow = None
 command = None
 currFrame = None
+setupBG = "#1f1f1f"
 
 scaling = 1.0
 
 selectedModules = []
 fileNames = []
+activeFrames = {}
 
 # Clock Vars
 strForm = "%I:%M %p"
@@ -32,6 +34,12 @@ newsSource = "none"
 newsCountry = "United States"
 newsLanguage = "english"
 newsExclude = []
+
+# Weather Vars
+tempForm = "fahrenheit"
+windForm = "mph"
+dirForm = "degrees"
+location = "Dallas, TX"
 
 
 def init(window):
@@ -81,38 +89,45 @@ def set_teamName(name, league):
 
 class MainFrame(tk.Frame):
     def __init__(self, window):
-        tk.Frame.__init__(self, window, bg="#1f1f1f")
+        tk.Frame.__init__(self, window, bg=setupBG)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
+        # self.place(relx=0.0, rely=0.0, anchor=tk.CENTER)
 
-        self.clockButt = tk.Button(self, font=("sans-serif", 64), width=6,
+        self.clockButt = tk.Button(self, bg=setupBG, font=("sans-serif", 64), width=6,
                                    text="Clock", command=lambda: switchTo(ClockFrame))
-        self.clockButt.grid(row=0, column=0)
+        # self.clockButt.grid(row=0, column=0)
+        self.clockButt.place(relx=0.17, rely=0.1, anchor=tk.CENTER)
 
-        self.newsButt = tk.Button(self, font=("sans-serif", 64), width=6,
+        self.newsButt = tk.Button(self, bg=setupBG, font=("sans-serif", 64), width=6,
                                   text="News", command=lambda: switchTo(NewsFrame))
-        self.newsButt.grid(row=0, column=1)
+        # self.newsButt.grid(row=0, column=1)
+        self.newsButt.place(relx=0.17, rely=0.3, anchor=tk.CENTER)
 
-        self.sportsButt = tk.Button(self, font=("sans-serif", 64), width=6,
+        self.sportsButt = tk.Button(self, bg=setupBG, font=("sans-serif", 64), width=6,
                                           text="Sports", command=lambda: switchTo(SportsFrame))
-        self.sportsButt.grid(row=0, column=2)
+        # self.sportsButt.grid(row=0, column=2)
+        self.sportsButt.place(relx=0.17, rely=0.5, anchor=tk.CENTER)
 
-        # self.weatherButt = tk.Button(self, font=("sans-serif", 64), width=6,
-        #                              text="Weather", command=lambda: switchTo(None))
-        # self.weatherButt.grid(row=1, column=0)
+        self.weatherButt = tk.Button(self, bg=setupBG, font=("sans-serif", 64), width=6,
+                                     text="Weather", command=lambda: switchTo(WeatherFrame))
+        self.weatherButt.place(relx=0.17, rely=0.7, anchor=tk.CENTER)
 
-        self.extrasButt = tk.Button(self, font=("sans-serif", 64), width=6,
+        self.extrasButt = tk.Button(self, bg=setupBG, font=("sans-serif", 64), width=6,
                                   text="Extras", command=lambda: switchTo(OtherFrame))
-        self.extrasButt.grid(row=1, column=1)
+        # self.extrasButt.grid(row=1, column=1)
+        self.extrasButt.place(relx=0.83, rely=0.71, anchor=tk.CENTER)
 
-        self.finishButt = tk.Button(self, font=("sans-serif", 64), width=6,
+        self.finishButt = tk.Button(self, bg=setupBG, font=("sans-serif", 64), width=6,
                                   text="Finish", command=end)
-        self.finishButt.grid(row=2, column=0, columnspan=3)
+        # self.finishButt.grid(row=2, column=0, columnspan=3)
+        self.finishButt.place(relx=0.83, rely=0.91, anchor=tk.CENTER)
+
 
 class OtherFrame(tk.Frame):
     def __init__(self, window):
-        tk.Frame.__init__(self, window, bg="#1f1f1f")
+        tk.Frame.__init__(self, window, bg=setupBG)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
@@ -122,36 +137,41 @@ class OtherFrame(tk.Frame):
         instructions = "To Add Extra Modules (Non-Official), Enter the File Name\n"
         instructions += "as it appears in the file manager.\n"
 
-        self.instMess = tk.Message(self, text=instructions)
-        self.instMess.grid(row=0, column=0, sticky="nw", columnspan=4)
-        self.instMess.configure(justify="left", width=500)
+        self.instMess = tk.Message(self, bg=setupBG, font=("sans-serif", 32),
+                                   text=instructions, justify="left", width=1000)
+        self.instMess.place(relx=0.0, rely=0.0, anchor="nw")
 
-        self.fileLBL = tk.Label(self, text="File Name:")
-        self.fileLBL.grid(row=1, column=0, sticky="nw")
+        self.fileLBL = tk.Label(self, bg=setupBG, font=("sans-serif", 32),
+                                   text="File Name:")
+        self.fileLBL.place(relx=0.1, rely=0.23, anchor="w")
 
-        self.fileTB = tk.Entry(self, textvariable=self.fileName)
-        self.fileTB.grid(row=1, column=1)
+        self.fileTB = tk.Entry(self, bg="black", font=("sans-serif", 32),
+                                   textvariable=self.fileName)
+        self.fileTB.place(relx=0.3, rely=0.24, anchor="w")
 
-        self.confButt = tk.Button(self, text="Add Module", command=self.confirmClicked)
-        self.confButt.grid(row=2, column=0)
+        self.confButt = tk.Button(self, bg=setupBG, font=("sans-serif", 32),
+                                   text="Add Module", command=self.confirmClicked)
+        self.confButt.place(relx=0.1, rely=0.37, anchor="w")
 
-        self.resetButt = tk.Button(self, text="Reset List", command=self.resetClicked)
-        self.resetButt.grid(row=2, column=1)
+        self.resetButt = tk.Button(self, bg=setupBG, font=("sans-serif", 32),
+                                   text="Reset List", command=self.resetClicked)
+        self.resetButt.place(relx=0.4, rely=0.37, anchor="w")
 
-        self.writeButt = tk.Button(self, text="Finish", command=return_to_main)
-        self.writeButt.grid(row=2, column=2)
+        self.writeButt = tk.Button(self, bg=setupBG, font=("sans-serif", 32),
+                                   text="Finish", command=return_to_main)
+        self.writeButt.place(relx=0.7, rely=0.37, anchor="w")
 
-        self.listLBL = tk.Label(self, text="Functions To Add:")
-        self.listLBL.grid(row=3, column=0, columnspan=3, sticky="s")
-        # self.listLBL.configure(justify="left")
+        self.listLBL = tk.Label(self, bg=setupBG, font=("sans-serif", 32),
+                                   text="Functions To Add:")
+        self.listLBL.place(relx=0.35, rely=0.47, anchor="w")
 
         global fileNames
         fileListContents = ""
         for i in fileNames:
             fileListContents += i.capitalize() + "\n"
 
-        self.fileList = tk.Label(self, text=fileListContents)
-        self.fileList.grid(row=4, column=0, columnspan=3)
+        self.fileList = tk.Label(self, bg=setupBG, font=("sans-serif", 32), text=fileListContents)
+        self.fileList.place(relx=0.45, rely=0.6, anchor="w")
 
     def confirmClicked(self):
         global fileNames
@@ -175,7 +195,7 @@ class OtherFrame(tk.Frame):
 
 class ClockFrame(tk.Frame):
     def __init__(self, window):
-        tk.Frame.__init__(self, window, bg="#1f1f1f")
+        tk.Frame.__init__(self, window, bg=setupBG)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
@@ -204,42 +224,40 @@ class ClockFrame(tk.Frame):
         self.colorBGButt = tk.Button(self, text="BG Color", command=self.set_color_BG)
         self.colorResetBGButt = tk.Button(self, text="Reset Text Color", command=self.reset_color_BG)
 
-        self.timeInstLBL.grid(row=0, column=0, columnspan=4)
-        self.timeFormButt1.grid(row=1, column=0)
-        self.timeFormButt2.grid(row=1, column=1)
-        self.timeFormButt3.grid(row=1, column=2)
-        self.timeFormButt4.grid(row=1, column=3)
+        self.timeInstLBL.place(relx=0.5, rely=0.03, anchor="center")
+        self.timeFormButt1.place(relx=0.2, rely=0.1, anchor="center")
+        self.timeFormButt2.place(relx=0.4, rely=0.1, anchor="center")
+        self.timeFormButt3.place(relx=0.6, rely=0.1, anchor="center")
+        self.timeFormButt4.place(relx=0.8, rely=0.1, anchor="center")
 
-        self.dayInstLBL.grid(row=2, column=0, columnspan=4)
-        self.dayFormButt1.grid(row=3, column=0)
-        self.dayFormButt2.grid(row=3, column=1)
-        self.dayFormButtx.grid(row=3, column=2)
+        self.dayInstLBL.place(relx=0.5, rely=0.2, anchor="center")
+        self.dayFormButt1.place(relx=0.3, rely=0.27, anchor="center")
+        self.dayFormButt2.place(relx=0.5, rely=0.27, anchor="center")
+        self.dayFormButtx.place(relx=0.7, rely=0.27, anchor="center")
 
-        self.dateInstLBL.grid(row=4, column=0, columnspan=4)
-        self.dateFormButt1.grid(row=5, column=0)
-        self.dateFormButt2.grid(row=5, column=1)
-        self.dateFormButt3.grid(row=5, column=2)
-        self.dateFormButtx.grid(row=5, column=3)
+        self.dateInstLBL.place(relx=0.5, rely=0.37, anchor="center")
+        self.dateFormButt1.place(relx=0.2, rely=0.44, anchor="center")
+        self.dateFormButt2.place(relx=0.4, rely=0.44, anchor="center")
+        self.dateFormButt3.place(relx=0.6, rely=0.44, anchor="center")
+        self.dateFormButtx.place(relx=0.8, rely=0.44, anchor="center")
 
-        self.colorLBL.grid(row=6, column=0, columnspan=4)
-        self.colorTextButt.grid(row=7, column=0)
-        self.colorResetTextButt.grid(row=7, column=1)
-        self.colorBGButt.grid(row=7, column=2)
-        self.colorResetBGButt.grid(row=7, column=3)
+        self.colorLBL.place(relx=0.5, rely=0.54, anchor="center")
+        self.colorTextButt.place(relx=0.2, rely=0.61, anchor="center")
+        self.colorResetTextButt.place(relx=0.4, rely=0.61, anchor="center")
+        self.colorBGButt.place(relx=0.6, rely=0.61, anchor="center")
+        self.colorResetBGButt.place(relx=0.8, rely=0.61, anchor="center")
 
         self.confButt = tk.Button(self, bg="black", text="Confirm Selection", command=self.addModule)
-        self.confButt.grid(row=8, column=2, columnspan=1)
-
+        self.confButt.place(relx=0.4, rely=0.7, anchor="center")
+        #
         self.confButt = tk.Button(self, bg="black", text="Return", command=return_to_main)
-        self.confButt.grid(row=8, column=3, columnspan=1)
+        self.confButt.place(relx=0.6, rely=0.7, anchor="center")
 
         global strForm, timeForm, dateForm, dayForm, color
 
         self.timeLBL = tk.Label(self, bg="black", fg="white", font=("Sans Serif", int(window.winfo_screenwidth() / 25), "bold"),
                                 text=time.strftime(strForm, time.localtime()))
-        self.timeLBL.grid(row=9, column=0, columnspan=4)
-        self.timeLBL.grid_rowconfigure(0, weight=1)
-        self.timeLBL.grid_columnconfigure(0, weight=1)
+        self.timeLBL.place(relx=0.5, rely=0.85, anchor="center")
 
     def update_timeLBL(self):
         global strForm, textColor, BGColor
@@ -306,28 +324,28 @@ class SportsFrame(tk.Frame):
         self.configure()  # bg="black")
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
-        self.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        self.grid(row=0, column=0, sticky="nsew")
 
         instructions = "Click On The League You Wish To Add a Team For:"
 
         self.instLBL = tk.Label(self, text=instructions)
-        self.instLBL.grid(row=0, column=0, sticky="nw")
+        self.instLBL.place(relx=0.5, rely=0.03, anchor="center")
 
-        self.nflButt = tk.Button(self, text="NFL", command=lambda: switchTo(NFLFrame))
-        self.nflButt.grid(row=1, column=0)
-        self.cfbButt = tk.Button(self, text="CFB", command=lambda: switchTo(CFBFrame))
-        self.cfbButt.grid(row=1, column=1)
-        self.nbaButt = tk.Button(self, text="NBA", command=lambda: switchTo(NBAFrame))
-        self.nbaButt.grid(row=2, column=0)
-        self.cbbButt = tk.Button(self, text="CBB", command=lambda: switchTo(CBBFrame))
-        self.cbbButt.grid(row=2, column=1)
-        # self.nhlButt = tk.Button(self, text="NHL", command=lambda: switchTo(NHLFrame))
-        # self.nhlButt.grid(row=3, column=0)
+        self.nflButt = tk.Button(self, text="NFL", font=("sans-serif", 32), command=lambda: switchTo(NFLFrame))
+        self.nflButt.place(relx=0.4, rely=0.12, anchor="center")
+        self.cfbButt = tk.Button(self, text="CFB", font=("sans-serif", 32), command=lambda: switchTo(CFBFrame))
+        self.cfbButt.place(relx=0.6, rely=0.12, anchor="center")
+        self.nbaButt = tk.Button(self, text="NBA", font=("sans-serif", 32), command=lambda: switchTo(NBAFrame))
+        self.nbaButt.place(relx=0.4, rely=0.25, anchor="center")
+        self.cbbButt = tk.Button(self, text="CBB", font=("sans-serif", 32), command=lambda: switchTo(CBBFrame))
+        self.cbbButt.place(relx=0.6, rely=0.25, anchor="center")
+        self.nhlButt = tk.Button(self, text="NHL", font=("sans-serif", 32), command=lambda: switchTo(NHLFrame))
+        self.nhlButt.place(relx=0.5, rely=0.38, anchor="center")
 
-        self.exitButt = tk.Button(self, text="Confirm", command=self.addModule)
-        self.exitButt.grid(row=4, column=0)
-        self.exitButt = tk.Button(self, text="Return", command=return_to_main)
-        self.exitButt.grid(row=4, column=1)
+        self.exitButt = tk.Button(self, text="Confirm", font=("sans-serif", 32), command=self.addModule)
+        self.exitButt.place(relx=0.4, rely=0.5, anchor="center")
+        self.exitButt = tk.Button(self, text="Return", font=("sans-serif", 32), command=return_to_main)
+        self.exitButt.place(relx=0.6, rely=0.5, anchor="center")
 
     def addModule(self):
         # global selectedModules
@@ -356,14 +374,14 @@ class NFLFrame(tk.Frame):
 
         instructions = "Select Your Favorite NFL Team:"
         instLBL = tk.Label(self, text=instructions)
-        instLBL.grid(row=0, column=0, columnspan=4)
+        instLBL.place(relx=0.5, rely=0.03, anchor="center")
 
         r = 1
         c = 0
         count = 0
 
         for i in teamNames:
-            butt = tk.Button(self, text=i, command=lambda name=i: set_teamName(name, "NFL"))
+            butt = tk.Button(self, text=i, font=("sans-serif", 32), command=lambda name=i: set_teamName(name, "NFL"))
             if (count >= 4):
                 r += 1
                 c = 0
@@ -372,8 +390,8 @@ class NFLFrame(tk.Frame):
             count += 1
             c += 1
 
-        returnButt = tk.Button(self, text="Return", command=lambda: switchTo(SportsFrame))
-        returnButt.grid(row=r+1, column=0, columnspan=4)
+        returnButt = tk.Button(self, text="Return", font=("sans-serif", 32), command=lambda: switchTo(SportsFrame))
+        returnButt.place(relx=0.5, rely=0.13, anchor="center")
 
 
 class NBAFrame(tk.Frame):
@@ -397,14 +415,14 @@ class NBAFrame(tk.Frame):
 
         instructions = "Select Your Favorite NBA Team:"
         instLBL = tk.Label(self, text=instructions)
-        instLBL.grid(row=0, column=0, columnspan=4)
+        instLBL.place(relx=0.5, rely=0.03, anchor="center")
 
         r = 1
         c = 0
         count = 0
 
         for i in teamNames:
-            butt = tk.Button(self, text=i, command=lambda name=i: set_teamName(name, "NBA"))
+            butt = tk.Button(self, text=i, font=("sans-serif", 32), command=lambda name=i: set_teamName(name, "NBA"))
             if (count >= 4):
                 r += 1
                 c = 0
@@ -413,8 +431,8 @@ class NBAFrame(tk.Frame):
             count += 1
             c += 1
 
-        returnButt = tk.Button(self, text="Return", command=lambda: switchTo(SportsFrame))
-        returnButt.grid(row=r + 1, column=0, columnspan=4)
+        returnButt = tk.Button(self, text="Return", font=("sans-serif", 32), command=lambda: switchTo(SportsFrame))
+        returnButt.place(relx=0.5, rely=0.13, anchor="center")
 
 
 class NHLFrame(tk.Frame):
@@ -438,15 +456,15 @@ class NHLFrame(tk.Frame):
 
         instructions = "Select Your Favorite NHL Team:"
         instLBL = tk.Label(self, text=instructions)
-        instLBL.grid(row=0, column=0, columnspan=4)
+        instLBL.place(relx=0.5, rely=0.03, anchor="center")
 
         r = 1
         c = 0
         count = 0
 
         for i in teamNames:
-            butt = tk.Button(self, text=i, command=lambda name=i: set_teamName(name, "NHL"))
-            if (count >= 4):
+            butt = tk.Button(self, text=i, font=("sans-serif", 32), command=lambda name=i: set_teamName(name, "NHL"))
+            if (count >= 3):
                 r += 1
                 c = 0
                 count = 0
@@ -454,8 +472,8 @@ class NHLFrame(tk.Frame):
             count += 1
             c += 1
 
-        returnButt = tk.Button(self, text="Return", command=lambda: switchTo(SportsFrame))
-        returnButt.grid(row=r + 1, column=0, columnspan=4)
+        returnButt = tk.Button(self, text="Return", font=("sans-serif", 32), command=lambda: switchTo(SportsFrame))
+        returnButt.place(relx=0.5, rely=0.13, anchor="center")
 
 
 class CFBFrame(tk.Frame):
@@ -468,23 +486,23 @@ class CFBFrame(tk.Frame):
 
         instructions = "Enter The Full Team Name.\n"
         instructions += "EX: Duke Blue Devils"
-        instLBL = tk.Label(self, text=instructions)
-        instLBL.grid(row=0, column=0, columnspan=4)
+        instLBL = tk.Label(self, font=("sans-serif", 32), text=instructions)
+        instLBL.place(relx=0.5, rely=0.0, anchor="n")
 
         note = "Type In Your Favorite CFB Team:"
-        noteLBL = tk.Label(self, text=note)
-        noteLBL.grid(row=1, column=0)
+        noteLBL = tk.Label(self, font=("sans-serif", 32), text=note)
+        noteLBL.place(relx=0.5, rely=0.17, anchor="n")
 
         self.teamName = tk.StringVar()
 
-        teamENT = tk.Entry(self, textvariable=self.teamName)
-        teamENT.grid(row=1, column=1, columnspan=2)
+        teamENT = tk.Entry(self, font=("sans-serif", 32), textvariable=self.teamName)
+        teamENT.place(relx=0.5, rely=0.27, anchor="n")
 
-        teamButt = tk.Button(self, text="Set Team", command=self.send_team)
-        teamButt.grid(row=2, column=0)
+        teamButt = tk.Button(self, text="Set Team", font=("sans-serif", 32), command=self.send_team)
+        teamButt.place(relx=0.5, rely=0.4, anchor="n")
 
-        returnButt = tk.Button(self, text="Return", command=lambda: switchTo(SportsFrame))
-        returnButt.grid(row=2, column=1)
+        returnButt = tk.Button(self, text="Return", font=("sans-serif", 32), command=lambda: switchTo(SportsFrame))
+        returnButt.place(relx=0.5, rely=0.55, anchor="center")
 
     def send_team(self):
         set_teamName(self.teamName.get().title(), "CFB")
@@ -500,23 +518,23 @@ class CBBFrame(tk.Frame):
 
         instructions = "Enter The Full Team Name.\n"
         instructions += "EX: Duke Blue Devils"
-        instLBL = tk.Label(self, text=instructions)
-        instLBL.grid(row=0, column=0, columnspan=4)
+        instLBL = tk.Label(self, font=("sans-serif", 32), text=instructions)
+        instLBL.place(relx=0.5, rely=0.0, anchor="n")
 
         note = "Type In Your Favorite CBB Team:"
-        noteLBL = tk.Label(self, text=note)
-        noteLBL.grid(row=1, column=0)
+        noteLBL = tk.Label(self, font=("sans-serif", 32), text=note)
+        noteLBL.place(relx=0.5, rely=0.17, anchor="n")
 
         self.teamName = tk.StringVar()
 
-        teamENT = tk.Entry(self, textvariable=self.teamName)
-        teamENT.grid(row=1, column=1, columnspan=2)
+        teamENT = tk.Entry(self, font=("sans-serif", 32), textvariable=self.teamName)
+        teamENT.place(relx=0.5, rely=0.27, anchor="n")
 
-        teamButt = tk.Button(self, text="Set Team", command=self.send_team)
-        teamButt.grid(row=2, column=0)
+        teamButt = tk.Button(self, text="Set Team", font=("sans-serif", 32), command=self.send_team)
+        teamButt.place(relx=0.5, rely=0.4, anchor="n")
 
-        returnButt = tk.Button(self, text="Return", command=lambda: switchTo(SportsFrame))
-        returnButt.grid(row=2, column=1)
+        returnButt = tk.Button(self, text="Return", font=("sans-serif", 32), command=lambda: switchTo(SportsFrame))
+        returnButt.place(relx=0.5, rely=0.55, anchor="center")
 
 
     def send_team(self):
@@ -533,40 +551,40 @@ class NewsFrame(tk.Frame):
 
         self.genText = tk.StringVar()
 
-        instructions = "The Default Location and Language are United States and English.\n"
-        instructions += "To Use a Specific Source, enter the Source's URL.\nEX: cnn.com or foxnews.com\n"
-        instructions += "To Exclude Sources, enter the Source's URL.\nEX: cnn.com or foxnews.com\n"
+        instructions = "The Default Location and Language are United States\nand English. "
+        instructions += "To Use a Specific Source, or Exclude Sources,\nenter the Source's URL.      "
+        instructions += "EX: cnn.com or foxnews.com"
 
-        instMESS = tk.Label(self, text=instructions, justify="left")
-        instMESS.grid(row=0, column=0, columnspan=4, sticky="nw")
+        instMESS = tk.Label(self, font=("sans-serif", 32), text=instructions, justify="left")
+        instMESS.place(relx=0.0, rely=0.0, anchor="nw")
 
 
-        self.genENT = tk.Entry(self, bg="black", textvariable=self.genText)
-        self.genENT.grid(row=1, column=0, columnspan=3)
+        self.genENT = tk.Entry(self, font=("sans-serif", 32), bg="black", textvariable=self.genText)
+        self.genENT.place(relx=0.5, rely=0.32, anchor="center")
 
-        countryButt = tk.Button(self, text="Set Country", command=self.set_country)
-        languageButt = tk.Button(self, text="Set Language", command=self.set_language)
-        sourceButt = tk.Button(self, text="Use Source", command=self.set_source)
-        excludeButt = tk.Button(self, text="Add Exclusion", command=self.add_exclude)
-        resetExcButt = tk.Button(self, text="Reset Exclusions", command=self.reset_exclude)
+        countryButt = tk.Button(self, font=("sans-serif", 32), text="Set Country", command=self.set_country)
+        languageButt = tk.Button(self, font=("sans-serif", 32), text="Set Language", command=self.set_language)
+        sourceButt = tk.Button(self, font=("sans-serif", 32), text="Set Source", command=self.set_source)
+        excludeButt = tk.Button(self, font=("sans-serif", 32), text="Add Exclusion", command=self.add_exclude)
+        resetExcButt = tk.Button(self, font=("sans-serif", 32), text="Reset Exclusions", command=self.reset_exclude)
 
-        countryButt.grid(row=2, column=0)
-        languageButt.grid(row=2, column=1)
-        sourceButt.grid(row=2, column=2)
-        excludeButt.grid(row=2, column=3)
-        resetExcButt.grid(row=2, column=4)
+        countryButt.place(relx=0.00, rely=0.45, anchor="w")
+        languageButt.place(relx=0.23, rely=0.45, anchor="w")
+        sourceButt.place(relx=0.5, rely=0.45, anchor="w")
+        excludeButt.place(relx=0.72, rely=0.45, anchor="w")
+        resetExcButt.place(relx=0.58, rely=0.55, anchor="w")
 
-        returnButt = tk.Button(self, text="Return", command=return_to_main)
-        confirmButt = tk.Button(self, text="Finish", command=self.addModule)
+        returnButt = tk.Button(self, font=("sans-serif", 32), text="Return", command=return_to_main)
+        confirmButt = tk.Button(self, font=("sans-serif", 32), text="Finish", command=self.addModule)
 
-        returnButt.grid(row=3, column=5)
-        confirmButt.grid(row=3, column=6)
+        returnButt.place(relx=0.1, rely=0.55, anchor="w")
+        confirmButt.place(relx=0.3, rely=0.55, anchor="w")
 
-        excLBL = tk.Label(self, text="Excluded Sources:")
-        excLBL.grid(row=3, column=0, columnspan=4)
+        excLBL = tk.Label(self, font=("sans-serif", 32), text="Excluded Sources:")
+        excLBL.place(relx=0.5, rely=0.65, anchor="center")
 
-        self.excMESS = tk.Label(self)
-        self.excMESS.grid(row=4, column=0, columnspan=4)
+        self.excMESS = tk.Label(self, font=("sans-serif", 32))
+        self.excMESS.place(relx=0.5, rely=0.75, anchor="center")
 
 
 
@@ -625,3 +643,71 @@ class WeatherFrame(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky="nsew")
+
+        self.locVar = tk.StringVar()
+
+        tempLBL = tk.Label(self, text="Choose Temperature Format:", font=("sans-serif", 32))
+        self.tempButton = tk.Button(self, font=("sans-serif", 32), text="ºF", command=self.set_temps)
+        tempLBL.place(relx=0.0, rely=0.1, anchor="w")
+        self.tempButton.place(relx=0.5, rely=0.1, anchor="w")
+
+        windLBL = tk.Label(self, text="Choose Wind Speed Format:", font=("sans-serif", 32))
+        self.windButton = tk.Button(self, font=("sans-serif", 32), text="MPH", command=self.set_wind)
+        windLBL.place(relx=0.0, rely=0.25, anchor="w")
+        self.windButton.place(relx=0.55, rely=0.25, anchor="center")
+
+        dirLBL = tk.Label(self, text="Choose Wind Direction Format:", font=("sans-serif", 32))
+        self.dirButton = tk.Button(self, font=("sans-serif", 32), text="Degrees", command=self.set_dir)
+        dirLBL.place(relx=0.0, rely=0.4, anchor="w")
+        self.dirButton.place(relx=0.62, rely=0.4, anchor="center")
+
+        locLBL = tk.Label(self, text="Enter a Location:", font=("sans-serif", 32))
+        self.locENT = tk.Entry(self, font=("sans-serif", 32), textvariable=self.locVar)
+        locLBL.place(relx=0.0, rely=0.55, anchor="w")
+        self.locENT.place(relx=0.3, rely=0.56, anchor="w")
+
+        locConfirm = tk.Button(self, font=("sans-serif", 32), text="Set Location", command=self.set_location)
+        locConfirm.place(relx=0.54, rely=0.67, anchor="center")
+
+        confirmButt = tk.Button(self, font=("sans-serif", 32), text="Confirm", command=self.add_module)
+        confirmButt.place(relx=0.4, rely=0.85, anchor="center")
+
+        returnButt = tk.Button(self, font=("sans-serif", 32), text="Return", command=return_to_main)
+        returnButt.place(relx=0.6, rely=0.85, anchor="center")
+
+    def set_temps(self):
+        global tempForm
+        if (tempForm == "fahrenheit"):
+            tempForm = "celsius"
+            self.tempButton.configure(text="ºC")
+        else:
+            tempForm = "fahrenheit"
+            self.tempButton.configure(text="ºF")
+
+    def set_wind(self):
+        global windForm
+        if (windForm == "mph"):
+            windForm = "kmh"
+            self.windButton.configure(text="KMH")
+        else:
+            windForm = "mph"
+            self.windButton.configure(text="MPH")
+
+    def set_dir(self):
+        global dirForm
+        if (dirForm == "degrees"):
+            dirForm = "cardinal"
+            self.dirButton.configure(text="Cardinal")
+        else:
+            dirForm = "degrees"
+            self.dirButton.configure(text="Degrees")
+
+    def set_location(self):
+        global location
+        location = self.locVar.get()
+        self.locENT.delete(0, tk.END)
+
+    def add_module(self):
+        global selectedModules
+        selectedModules.append("weather")
+        return_to_main()
