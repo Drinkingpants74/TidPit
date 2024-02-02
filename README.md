@@ -43,8 +43,7 @@ More Modules will be added as time goes on.
 
 ## Upcoming Modules:
 In No Particular Order:
-* Photo Scroller/Viewer
-* Inspirational Quotes
+* None
 
 ## LongShot Modules:
 * None
