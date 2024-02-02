@@ -38,6 +38,7 @@ It's _designed_ to be run on a Raspberry Pi, but it _can_ run on anything that s
 2. News
 3. Sports (NFL, NBA, CFB, CBB)
 4. Weather
+5. Quotes
 
 More Modules will be added as time goes on.
 
