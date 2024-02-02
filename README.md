@@ -79,29 +79,35 @@ Some modules have dependency requirements. You do not need every dependency, jus
 necessary for the Modules you want to use.
 
 ### Dependencies:
-Clock:
+**Clock:**
 * None
 
-News:
+**News:**
 * [GNews](https://github.com/ranahaani/GNews)
 ```
 pip install gnews
 ```
 
-Sports:
+**Sports:**
 * [Sports Dataverse](https://github.com/sportsdataverse/sportsdataverse-py)
 * Requests
 * Pillow
 ```
 pip install sportsdataverse requests pillow
 ```
-Weather:
+**Weather:**
 * [Open-Meteo](https://open-meteo.com)
 * Requests
 * Geopy
 * Pillow
 ```
 pip install openmeteo-requests requests-cache retry-requests geopy pillow
+```
+**Quotes:**
+* [Quotable API](https://github.com/lukePeavey/quotable)
+* Requests
+```
+pip install requests
 ```
 
 ### Setup:
